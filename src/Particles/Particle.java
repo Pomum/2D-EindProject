@@ -1,18 +1,14 @@
 package Particles;
 
-import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 public class Particle 
 {
 	private Point2D position;
-	private Point2D oldPosition;
 	private Point2D target;
 	private double speed;
-	private double rotation;
 	private Shape circle = new Ellipse2D.Double();
 	private int lenght = 20;
 	
