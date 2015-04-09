@@ -12,20 +12,40 @@ public class Particle
 	private Shape circle = new Ellipse2D.Double();
 	private int lenght = 20;
 	
-	public Particle(Point2D position, Point2D target)
+	public Particle(Point2D p, Point2D target)
 	{
-		this.position = position;
+		this.position = new Point2D.Double(p.getX() - lenght/2, p.getY() - lenght/2);
 		this.target = target;
-		this.speed = 5;
-		circle = new Ellipse2D.Double(position.getX() - lenght/2, position.getY() - lenght/2, lenght, lenght);
+		this.speed = 1;
+		circle = new Ellipse2D.Double(position.getX() , position.getY(), lenght, lenght);
 	}
+	
 	public void update()
 	{
-		position = new Point2D.Double(position.getX(), position.getY() + speed);
+		//if(position.getX() != target.getX() && position.getY() != target.getY())
+		//{
+			position = new Point2D.Double(position.getX(), position.getY() - speed);
+			circle = new Ellipse2D.Double(position.getX(), position.getY(), lenght, lenght);
+		//}
 	}
 	
 	public Shape getCircle()
 	{
 		return circle;
+	}
+	
+	public Point2D getPosition()
+	{
+		return position;
+	}
+	
+	public Point2D getTarget()
+	{
+		return target;
+	}
+	
+	public int getLenght()
+	{
+		return lenght;
 	}
 }

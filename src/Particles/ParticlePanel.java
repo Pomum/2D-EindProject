@@ -2,6 +2,7 @@ package Particles;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -9,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -20,16 +20,13 @@ public class ParticlePanel extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Particle> particles = new ArrayList<Particle>(); 
-	private int amountParticles = 1;
 	private Point2D target;
 	
 	public ParticlePanel()
 	{
 		setBackground(Color.white);
-		setPreferredSize(new Dimension(800,800));
-		
+		setPreferredSize(new Dimension(1500,900));
 		mouse();
-		
 		new Timer(1000/60, this).start();
 	}
 	
@@ -51,8 +48,10 @@ public class ParticlePanel extends JPanel implements ActionListener
 	
 	public void mouse()
 	{
-		addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
+		addMouseListener(new MouseAdapter() 
+		{
+			public void mousePressed(MouseEvent e) 
+			{
 				Point2D clickPoint = e.getPoint();
 				target = new Point2D.Double(clickPoint.getX(), clickPoint.getY()-100);
 				Particle part = new Particle(clickPoint, target);
@@ -66,6 +65,14 @@ public class ParticlePanel extends JPanel implements ActionListener
 		for(Particle p : particles)
 		{
 			Shape s = p.getCircle();
+			int lenght = p.getLenght();
+			Point2D point = p.getPosition();
+			
+			g2.setPaint(new GradientPaint((int)(point.getX()-lenght/2),(int)(point.getY()+lenght/2),Color.cyan,(int)(point.getX()+lenght/2),(int)(point.getX()-lenght/2),Color.white));
+			g2.fill(s);
+			g2.setPaint(new GradientPaint((int)(point.getX()-lenght/2),(int)(point.getY()+lenght/2),Color.white,(int)(point.getX()+lenght/2),(int)(point.getX()-lenght/2),new Color(255, 255, 0, 0)));
+			g2.fill(s);
+			g2.setPaint(Color.cyan);
 			g2.draw(s);
 		}
 		repaint();
