@@ -72,8 +72,8 @@ public class ParticlePanel extends JPanel implements ActionListener
 			g2.fill(s);
 			g2.setPaint(new GradientPaint((int)(point.getX()-lenght/2),(int)(point.getY()+lenght/2),Color.white,(int)(point.getX()+lenght/2),(int)(point.getX()-lenght/2),new Color(255, 255, 0, 0)));
 			g2.fill(s);
-			g2.setPaint(Color.cyan);
-			g2.draw(s);
+			//g2.setPaint(Color.cyan);
+			//g2.draw(s);
 		}
 		repaint();
 	}

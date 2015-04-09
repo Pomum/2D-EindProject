@@ -10,7 +10,7 @@ public class Particle
 	private Point2D target;
 	private double speed;
 	private Shape circle = new Ellipse2D.Double();
-	private int lenght = 20;
+	private int lenght = 50;
 	
 	public Particle(Point2D p, Point2D target)
 	{
