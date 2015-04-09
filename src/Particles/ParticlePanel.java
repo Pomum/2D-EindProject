@@ -21,6 +21,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	ArrayList<Particle> particles = new ArrayList<Particle>(); 
 	private Point2D target;
+	private Point2D clickPoint;
 	
 	public ParticlePanel()
 	{
@@ -52,7 +53,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-				Point2D clickPoint = e.getPoint();
+				clickPoint = e.getPoint();
 				target = new Point2D.Double(clickPoint.getX(), clickPoint.getY()-100);
 				Particle part = new Particle(clickPoint, target);
 				particles.add(part);
@@ -65,13 +66,17 @@ public class ParticlePanel extends JPanel implements ActionListener
 		for(Particle p : particles)
 		{
 			Shape s = p.getCircle();
-			int hLenght = p.getLenght()/2;
+			int h = p.getLenght()/2;
 			Point2D point = p.getPosition();
 			
-			g2.setPaint(new GradientPaint((int)(point.getX()-hLenght),(int)(point.getY()+hLenght),Color.cyan,(int)(point.getX()+hLenght),(int)(point.getX()-hLenght),Color.white));
+			g2.setPaint(Color.white);
 			g2.fill(s);
-			g2.setPaint(new GradientPaint((int)(point.getX()-hLenght),(int)(point.getY()+hLenght),Color.white,(int)(point.getX()+hLenght),(int)(point.getX()-hLenght),new Color(255, 255, 0, 0)));
+			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.cyan,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
 			g2.fill(s);
+			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.white,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,new Color(255, 255, 0, 0)));
+			g2.fill(s);
+			g2.setPaint(Color.cyan);
+			g2.draw(s);
 		}
 		repaint();
 	}

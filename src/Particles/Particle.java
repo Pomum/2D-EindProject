@@ -10,7 +10,7 @@ public class Particle
 	private Point2D target;
 	private double speed;
 	private Shape circle = new Ellipse2D.Double();
-	private int lenght = 50;
+	private int lenght = 10;
 	
 	public Particle(Point2D p, Point2D target)
 	{
@@ -22,11 +22,8 @@ public class Particle
 	
 	public void update()
 	{
-		//if(position.getX() != target.getX() && position.getY() != target.getY())
-		//{
 			position = new Point2D.Double(position.getX(), position.getY() - speed);
 			circle = new Ellipse2D.Double(position.getX(), position.getY(), lenght, lenght);
-		//}
 	}
 	
 	public Shape getCircle()
