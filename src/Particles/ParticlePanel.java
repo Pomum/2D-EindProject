@@ -37,10 +37,6 @@ public class ParticlePanel extends JPanel implements ActionListener
 	{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		
-		g2.translate(getWidth()/2, getHeight()/2);
-		g2.scale(1, -1);
-		
 		paint(g2);
 	}
 
@@ -58,18 +54,9 @@ public class ParticlePanel extends JPanel implements ActionListener
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Point2D clickPoint = e.getPoint();
-				target = new Point2D.Double(clickPoint.getX() + 100, clickPoint.getY());
-				
-				System.out.println(clickPoint.getX() + " + " + clickPoint.getY());
-				
-				
-				
-				
-//				while(particles.size() < amountParticles)
-//				{
-//					Particle part = new Particle(clickPoint, target);
-//					particles.add(part);
-//				}
+				target = new Point2D.Double(clickPoint.getX(), clickPoint.getY()-100);
+				Particle part = new Particle(clickPoint, target);
+				particles.add(part);
 			}
 		});
 	}
@@ -78,7 +65,9 @@ public class ParticlePanel extends JPanel implements ActionListener
 	{
 		for(Particle p : particles)
 		{
-			p.paint(g2);
+			Shape s = p.getCircle();
+			g2.draw(s);
 		}
+		repaint();
 	}
 }
