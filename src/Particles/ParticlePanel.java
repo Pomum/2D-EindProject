@@ -65,15 +65,13 @@ public class ParticlePanel extends JPanel implements ActionListener
 		for(Particle p : particles)
 		{
 			Shape s = p.getCircle();
-			int lenght = p.getLenght();
+			int hLenght = p.getLenght()/2;
 			Point2D point = p.getPosition();
 			
-			g2.setPaint(new GradientPaint((int)(point.getX()-lenght/2),(int)(point.getY()+lenght/2),Color.cyan,(int)(point.getX()+lenght/2),(int)(point.getX()-lenght/2),Color.white));
+			g2.setPaint(new GradientPaint((int)(point.getX()-hLenght),(int)(point.getY()+hLenght),Color.cyan,(int)(point.getX()+hLenght),(int)(point.getX()-hLenght),Color.white));
 			g2.fill(s);
-			g2.setPaint(new GradientPaint((int)(point.getX()-lenght/2),(int)(point.getY()+lenght/2),Color.white,(int)(point.getX()+lenght/2),(int)(point.getX()-lenght/2),new Color(255, 255, 0, 0)));
+			g2.setPaint(new GradientPaint((int)(point.getX()-hLenght),(int)(point.getY()+hLenght),Color.white,(int)(point.getX()+hLenght),(int)(point.getX()-hLenght),new Color(255, 255, 0, 0)));
 			g2.fill(s);
-			//g2.setPaint(Color.cyan);
-			//g2.draw(s);
 		}
 		repaint();
 	}
