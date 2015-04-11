@@ -54,8 +54,30 @@ public class ParticlePanel extends JPanel implements ActionListener
 			public void mousePressed(MouseEvent e) 
 			{
 				clickPoint = e.getPoint();
+				int random = (int)(Math.random()*10);
 				target = new Point2D.Double(clickPoint.getX(), clickPoint.getY()-100);
-				Particle part = new Particle(clickPoint, target);
+				Particle part;
+				
+				if(random <= 1)
+				{
+					part = new Particle(clickPoint, target, new Color(255, 193, 43)); // orange
+				} 
+				else if(random <= 3)
+				{
+					part = new Particle(clickPoint, target, new Color(249, 247, 70)); // yellow
+				}
+				else if(random <= 5)
+				{
+					part = new Particle(clickPoint, target, new Color(79, 249, 70)); // green
+				}
+				else if(random <= 7)
+				{
+					part = new Particle(clickPoint, target, new Color(255, 12, 12)); // red
+				}
+				else
+				{
+					part = new Particle(clickPoint, target, Color.cyan); // blue
+				}
 				particles.add(part);
 			}
 		});
@@ -71,11 +93,11 @@ public class ParticlePanel extends JPanel implements ActionListener
 			
 			g2.setPaint(Color.white);
 			g2.fill(s);
-			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.cyan,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
+			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,p.getColor(),(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
 			g2.fill(s);
 			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.white,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,new Color(255, 255, 0, 0)));
 			g2.fill(s);
-			g2.setPaint(Color.cyan);
+			g2.setPaint(p.getColor());
 			g2.draw(s);
 		}
 		repaint();
