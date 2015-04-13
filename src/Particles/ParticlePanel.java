@@ -44,6 +44,15 @@ public class ParticlePanel extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
+		ListIterator<Particle> list = particles.listIterator();
+		while(list.hasNext())
+		{
+			Particle p = list.next();
+			if(p.getLife() <= 0)
+			{
+				list.remove();
+			}
+		}
 		for(Particle p : particles)
 		{
 			p.update();
@@ -75,21 +84,10 @@ public class ParticlePanel extends JPanel implements ActionListener
 				}
 			}
 		});
-			
 	}
 	
 	public void paint(Graphics2D g2)
 	{
-		ListIterator<Particle> list = particles.listIterator();
-		while(list.hasNext())
-		{
-			Particle p = list.next();
-			if(p.getLife() <= 0)
-			{
-				list.remove();
-			}
-		}
-		
 		for(Particle p : particles)
 		{
 			//bubble(g2, p);
