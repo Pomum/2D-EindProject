@@ -10,8 +10,9 @@ public class Particle
 	private Point2D position;
 	private double speed;
 	private Shape circle = new Ellipse2D.Double();
-	private int lenght = 10;
+	private int lenght = 100;
 	private Color color;
+	private int life = 255;
 	
 	public Particle(Point2D p, Color color)
 	{
@@ -25,6 +26,10 @@ public class Particle
 	{
 			position = new Point2D.Double(position.getX(), position.getY() - speed);
 			circle = new Ellipse2D.Double(position.getX(), position.getY(), lenght, lenght);
+			if(life >= 1)
+			{
+				life --;
+			}
 	}
 	
 	public Shape getCircle()
@@ -45,5 +50,10 @@ public class Particle
 	public Color getColor()
 	{
 		return color;
+	}
+	
+	public int getLife()
+	{
+		return life;
 	}
 }

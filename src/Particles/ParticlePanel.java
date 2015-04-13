@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,22 +81,40 @@ public class ParticlePanel extends JPanel implements ActionListener
 	{
 		for(Particle p : particles)
 		{
-			Shape s = p.getCircle();
-			int h = p.getLenght()/2;
-			Point2D point = p.getPosition();
-			
-			g2.setPaint(Color.white);
-			g2.fill(s);
-			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,p.getColor(),(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
-			g2.fill(s);
-			g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.white,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,new Color(255, 255, 0, 0)));
-			g2.fill(s);
-			g2.setPaint(p.getColor());
-			g2.draw(s);
+			//bubble(g2, p);
+			gradient(g2, p);
 		}
 		repaint();
 	}
 	
+	public void bubble(Graphics2D g2, Particle p) 
+	{
+		Shape s = p.getCircle();
+		int h = p.getLenght()/2;
+		Point2D point = p.getPosition();
+		g2.setPaint(Color.white);
+		g2.fill(s);
+		g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,p.getColor(),(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
+		g2.fill(s);
+		g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,Color.white,(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,new Color(255, 255, 0, 0)));
+		g2.fill(s);
+		g2.setPaint(p.getColor());
+		g2.draw(s);
+	}
+	
+	public void gradient(Graphics2D g2, Particle p)
+	{
+		Shape s = p.getCircle();
+		float h = p.getLenght()/2;
+		Point2D point = p.getPosition();
+		Color[] colors = new Color[]{new Color(0, 255, 255, p.getLife()),new Color(255,255,255,0)};
+		float[] fl = new float[] { 0.0f, 0.5f };
+		
+		g2.setPaint(new RadialGradientPaint(new Point2D.Double(point.getX()+h,point.getY()+h), h, fl, colors));
+		g2.fill(s);
+	}
+	
+
 	public Color rainbow()
 	{
 		int random = (int)(Math.random()*10);
