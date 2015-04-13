@@ -10,17 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class ParticlePanel extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Particle> particles = new ArrayList<Particle>(); 
-	private Point2D target;
 	private Point2D clickPoint;
 	
 	public ParticlePanel()
@@ -28,7 +29,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		setBackground(Color.white);
 		setPreferredSize(new Dimension(1500,900));
 		mouse();
-		new Timer(1000/60, this).start();
+		new Timer(100/6, this).start();
 	}
 	
 	public void paintComponent(Graphics g)
@@ -54,33 +55,25 @@ public class ParticlePanel extends JPanel implements ActionListener
 			public void mousePressed(MouseEvent e) 
 			{
 				clickPoint = e.getPoint();
-				int random = (int)(Math.random()*10);
-				target = new Point2D.Double(clickPoint.getX(), clickPoint.getY()-100);
 				Particle part;
-				
-				if(random <= 1)
-				{
-					part = new Particle(clickPoint, target, new Color(255, 193, 43)); // orange
-				} 
-				else if(random <= 3)
-				{
-					part = new Particle(clickPoint, target, new Color(249, 247, 70)); // yellow
-				}
-				else if(random <= 5)
-				{
-					part = new Particle(clickPoint, target, new Color(79, 249, 70)); // green
-				}
-				else if(random <= 7)
-				{
-					part = new Particle(clickPoint, target, new Color(255, 12, 12)); // red
-				}
-				else
-				{
-					part = new Particle(clickPoint, target, Color.cyan); // blue
-				}
+				part = new Particle(clickPoint, Color.cyan);
 				particles.add(part);
 			}
 		});
+		addMouseMotionListener(new MouseMotionAdapter() 
+		{
+			public void mouseDragged(MouseEvent e) 
+			{
+				if (SwingUtilities.isRightMouseButton(e))
+				{
+					clickPoint = e.getPoint();
+					Particle part;
+					part = new Particle(clickPoint, Color.cyan);
+					particles.add(part);
+				}
+			}
+		});
+			
 	}
 	
 	public void paint(Graphics2D g2)
@@ -101,5 +94,30 @@ public class ParticlePanel extends JPanel implements ActionListener
 			g2.draw(s);
 		}
 		repaint();
+	}
+	
+	public Color rainbow()
+	{
+		int random = (int)(Math.random()*10);
+		if(random <= 1)
+		{
+			return new Color(255, 193, 43); // orange
+		} 
+		else if(random <= 3)
+		{
+			return new Color(249, 247, 70); // yellow
+		}
+		else if(random <= 5)
+		{
+			return new Color(79, 249, 70); // green
+		}
+		else if(random <= 7)
+		{
+			return new Color(255, 12, 12); // red
+		}
+		else
+		{
+			return Color.cyan; // blue
+		}
 	}
 }
