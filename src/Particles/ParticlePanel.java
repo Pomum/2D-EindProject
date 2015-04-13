@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -79,6 +80,16 @@ public class ParticlePanel extends JPanel implements ActionListener
 	
 	public void paint(Graphics2D g2)
 	{
+		ListIterator<Particle> list = particles.listIterator();
+		while(list.hasNext())
+		{
+			Particle p = list.next();
+			if(p.getLife() <= 0)
+			{
+				list.remove();
+			}
+		}
+		
 		for(Particle p : particles)
 		{
 			//bubble(g2, p);
@@ -108,7 +119,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		float h = p.getLenght()/2;
 		Point2D point = p.getPosition();
 		Color[] colors = new Color[]{new Color(0, 255, 255, p.getLife()),new Color(255,255,255,0)};
-		float[] fl = new float[] { 0.0f, 0.5f };
+		float[] fl = new float[] {0.0f, 0.5f };
 		
 		g2.setPaint(new RadialGradientPaint(new Point2D.Double(point.getX()+h,point.getY()+h), h, fl, colors));
 		g2.fill(s);
