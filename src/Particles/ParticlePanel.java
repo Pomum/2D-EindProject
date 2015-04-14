@@ -19,12 +19,14 @@ import java.util.ListIterator;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-
+/** 4 particles tegelijkertijd eruit laten komen, en die alle vier een andere kant (diagonaal) op laten gaan. 
+ *  misschien ook nog ff kijken of er een manier is om een random nummer tussen 1 en 4 of 1 en 3 te laten gaan.*/
 public class ParticlePanel extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Particle> particles = new ArrayList<Particle>(); 
 	private Point2D clickPoint;
+	Color color = Color.cyan;
 	
 	public ParticlePanel()
 	{
@@ -65,10 +67,14 @@ public class ParticlePanel extends JPanel implements ActionListener
 		{
 			public void mousePressed(MouseEvent e) 
 			{
-				clickPoint = e.getPoint();
-				Particle part;
-				part = new Particle(clickPoint, Color.cyan);
-				particles.add(part);
+				if (SwingUtilities.isLeftMouseButton(e))
+				{
+					clickPoint = e.getPoint();
+					Particle part;
+					part = new Particle(clickPoint, color, 0, -1);
+					particles.add(part);
+				}
+				
 			}
 		});
 		addMouseMotionListener(new MouseMotionAdapter() 
@@ -78,9 +84,25 @@ public class ParticlePanel extends JPanel implements ActionListener
 				if (SwingUtilities.isRightMouseButton(e))
 				{
 					clickPoint = e.getPoint();
-					Particle part;
-					part = new Particle(clickPoint, Color.cyan);
-					particles.add(part);
+					particles.add(new Particle(clickPoint, color, 0.2, 0.2));
+					particles.add(new Particle(clickPoint, color, -0.2, 0.2));
+					particles.add(new Particle(clickPoint, color, 0.2, -0.2));
+					particles.add(new Particle(clickPoint, color, -0.2, -0.2));
+					
+					particles.add(new Particle(clickPoint, color, 0.5, 0.5));
+					particles.add(new Particle(clickPoint, color, -0.5, 0.5));
+					particles.add(new Particle(clickPoint, color, 0.5, -0.5));
+					particles.add(new Particle(clickPoint, color, -0.5, -0.5));
+					
+					particles.add(new Particle(clickPoint, color, 0.0, 0.2));
+					particles.add(new Particle(clickPoint, color, 0.0, -0.2));
+					particles.add(new Particle(clickPoint, color, 0.0, 0.5));
+					particles.add(new Particle(clickPoint, color, 0.0, -0.5));
+					
+					particles.add(new Particle(clickPoint, color, 0.2, 0.0));
+					particles.add(new Particle(clickPoint, color, -0.2, 0.0));
+					particles.add(new Particle(clickPoint, color, 0.5, 0.0));
+					particles.add(new Particle(clickPoint, color, -0.5, 0.0));
 				}
 			}
 		});
@@ -90,7 +112,6 @@ public class ParticlePanel extends JPanel implements ActionListener
 	{
 		for(Particle p : particles)
 		{
-			//bubble(g2, p);
 			gradient(g2, p);
 		}
 		repaint();
@@ -101,6 +122,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		Shape s = p.getCircle();
 		int h = p.getLenght()/2;
 		Point2D point = p.getPosition();
+		
 		g2.setPaint(Color.white);
 		g2.fill(s);
 		g2.setPaint(new GradientPaint((int)point.getX()-h/2+h,(int)point.getY()-h/2+h,p.getColor(),(int)point.getX()+h/2+h,(int)point.getY()+h/2+h,Color.white));
@@ -116,7 +138,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		Shape s = p.getCircle();
 		float h = p.getLenght()/2;
 		Point2D point = p.getPosition();
-		Color[] colors = new Color[]{new Color(0, 255, 255, p.getLife()),new Color(255,255,255,0)};
+		Color[] colors = new Color[]{new Color(p.getColor().getRed(), p.getColor().getGreen(), p.getColor().getBlue(), p.getLife()),new Color(255,255,255,0)};
 		float[] fl = new float[] {0.0f, 0.5f };
 		
 		g2.setPaint(new RadialGradientPaint(new Point2D.Double(point.getX()+h,point.getY()+h), h, fl, colors));

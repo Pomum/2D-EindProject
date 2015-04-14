@@ -8,27 +8,29 @@ import java.awt.geom.Point2D;
 public class Particle 
 {
 	private Point2D position;
-	private double speed;
 	private Shape circle = new Ellipse2D.Double();
 	private int lenght = 100;
 	private Color color;
 	private int life = 255;
+	private double speedX = 0;
+	private double speedY = -1;
 	
-	public Particle(Point2D p, Color color)
+	public Particle(Point2D p, Color color, double speedX, double speedY)
 	{
 		this.position = new Point2D.Double(p.getX() - lenght/2, p.getY() - lenght/2);
-		this.speed = 1;
 		this.color = color;
 		circle = new Ellipse2D.Double(position.getX() , position.getY(), lenght, lenght);
+		this.speedX = speedX;
+		this.speedY = speedY;
 	}
 	
 	public void update()
 	{
-			position = new Point2D.Double(position.getX(), position.getY() - speed);
+			position = new Point2D.Double(position.getX() +speedX, position.getY() + speedY);
 			circle = new Ellipse2D.Double(position.getX(), position.getY(), lenght, lenght);
-			if(life >= 1)
+			if(life >= 5)
 			{
-				life --;
+				life -= 5;
 			}
 	}
 	
