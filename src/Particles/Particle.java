@@ -1,6 +1,8 @@
 package Particles;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -34,19 +36,16 @@ public class Particle
 		}
 	}
 	
-	public Shape getCircle()
+	public void getGradient(Graphics2D g2)
 	{
-		return circle;
-	}
-	
-	public Point2D getPosition()
-	{
-		return position;
-	}
-	
-	public int getLenght()
-	{
-		return lenght;
+		Shape s = circle;
+		float h = lenght/2;
+		Point2D point = position;
+		Color[] colors = new Color[]{new Color(color.getRed(), color.getGreen(), color.getBlue(), life),new Color(255,255,255,0)};
+		float[] fl = new float[] {0.0f, 0.5f };
+		
+		g2.setPaint(new RadialGradientPaint(new Point2D.Double(point.getX()+h,point.getY()+h), h, fl, colors));
+		g2.fill(s);
 	}
 	
 	public Color getColor()
