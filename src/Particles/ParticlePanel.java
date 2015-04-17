@@ -27,7 +27,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 	{
 		setBackground(new Color(180, 180, 180));
 		setPreferredSize(new Dimension(1500,900));
-		mouse();
+		mouseListener();
 		new Timer(100/6, this).start();
 	}
 	
@@ -56,7 +56,7 @@ public class ParticlePanel extends JPanel implements ActionListener
 		}
 	}
 	
-	public void mouse()
+	public void mouseListener()
 	{
 		addMouseMotionListener(new MouseMotionAdapter() 
 		{
