@@ -28,7 +28,7 @@ public class Particle
 	
 	public void update()
 	{
-		position = new Point2D.Double(position.getX() +speedX, position.getY() + speedY);
+		position = new Point2D.Double(position.getX() + speedX, position.getY() + speedY);
 		circle = new Ellipse2D.Double(position.getX(), position.getY(), lenght, lenght);
 		if(life >= 5)
 		{

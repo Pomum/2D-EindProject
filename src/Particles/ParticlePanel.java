@@ -41,13 +41,13 @@ public class ParticlePanel extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		ListIterator<Particle> list = particles.listIterator();
-		while(list.hasNext())
+		ListIterator<Particle> particleIterator = particles.listIterator();
+		while(particleIterator.hasNext())
 		{
-			Particle p = list.next();
+			Particle p = particleIterator.next();
 			if(p.getLife() <= 0)
 			{
-				list.remove();
+				particleIterator.remove();
 			}
 		}
 		for(Particle p : particles)
