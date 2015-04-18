@@ -14,7 +14,7 @@ public class Particle
 	private int lenght = 100;
 	private Color color;
 	private int life = 255;
-	private double speedX ;
+	private double speedX;
 	private double speedY;
 	
 	public Particle(Point2D p, Color color, double speedX, double speedY)
